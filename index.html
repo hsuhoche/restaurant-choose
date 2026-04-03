@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>要吃什麼好呢?</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f8fafc; display: flex; justify-content: center; padding: 40px 20px; }
+        .container { background: white; padding: 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); width: 100%; max-width: 450px; }
+        h2 { text-align: center; color: #334155; margin-bottom: 1.5rem; letter-spacing: 1px; }
+        
+        .attr-block { margin-bottom: 1.2rem; }
+        .attr-label { font-weight: bold; margin-bottom: 8px; color: #64748b; font-size: 0.9rem; display: block; }
+        .checkbox-group { display: flex; gap: 10px; flex-wrap: wrap; background: #f1f5f9; padding: 12px; border-radius: 10px; }
+        
+        .checkbox-group label { display: flex; align-items: center; cursor: pointer; font-size: 0.95rem; color: #1e293b; }
+        .checkbox-group input { margin-right: 6px; width: 16px; height: 16px; cursor: pointer; }
+
+        .dashboard { display: flex; justify-content: space-between; align-items: center; margin: 20px 0 10px; padding: 0 5px; }
+        .count-badge { background: #e2e8f0; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; color: #475569; }
+        .count-badge b { color: #4f46e5; }
+
+        .btn-draw { 
+            background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%); 
+            color: white; width: 100%; padding: 14px; border: none; border-radius: 10px; 
+            font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+        .btn-draw:hover { transform: translateY(-1px); box-shadow: 0 6px 15px rgba(79, 70, 229, 0.4); }
+        .btn-draw:active { transform: translateY(0); }
+
+        #result-box { 
+            margin-top: 25px; padding: 25px; border-radius: 12px; text-align: center;
+            background: #fdfdff; border: 2px solid #e2e8f0; transition: 0.3s;
+        }
+        .result-hint { color: #94a3b8; font-size: 0.8rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        #result-text { color: #1e293b; font-size: 1.6rem; font-weight: bold; min-height: 2rem; }
+        #result-text a { color: #4f46e5; text-decoration: none; border-bottom: 2px solid #4f46e5; transition: 0.2s; }
+        #result-text a:hover { color: #ef4444; border-color: #ef4444; }
+        
+        .highlight { border-color: #6366f1 !important; background: #f5f3ff !important; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2> 🍴選擇餐廳🍴</h2>
+
+    <div id="filter-container"></div>
+
+    <div class="dashboard">
+        <div class="count-badge">餐廳總數: <b id="total-cnt">0</b></div>
+        <div class="count-badge">符合的餐廳: <b id="match-cnt">0</b></div>
+    </div>
+
+    <button class="btn-draw" onclick="handleDraw()">開始</button>
+
+    <div id="result-box">
+        <div class="result-hint">結果 (點擊開啟地圖)</div>
+        <div id="result-text">請勾選後點擊開始</div>
+    </div>
+</div>
+
+<script>
+    /** * [ 資料設定區 ] 
+     * 1. 屬性現在皆為陣列格式 []，支援多重屬性。
+     * 2. 新增 url 欄位，請放入 Google Maps 的分享連結。
+     */
+    const CONFIG = {
+        attributes: {
+            time: { label: "時間", options: ["早餐", "中餐", "晚餐"] },
+            location: { label: "活動地點", options: ["在家", "在外面"] },
+            big: { label: "吃大餐", options: ["爸爸請客"] },
+            day: { label: "今天星期幾", options: ["一", "二","三", "四","五", "六","日"] }
+        },
+        items: [
+            { 
+                name: "晨間廚房", 
+                time: ["早餐", "中餐"],
+                location: ["在家"], 
+                big: [], 
+                day: ["一", "二","三", "四","五", "六"],
+                url: "https://maps.app.goo.gl/xpximgqfS5a6tC977" 
+            },
+            { 
+                name: "克林姆", 
+                time: ["早餐", "中餐"], 
+                location: ["在家"], 
+                big: [], 
+                day: ["一", "二","三", "五", "六"],
+                url: "https://maps.app.goo.gl/nWzoTN9BpqfUGPgZ7" 
+            },
+            { 
+                name: "饅頭那家", 
+                time: ["早餐"], 
+                location: ["在家"], 
+                big: [], 
+                day: ["一", "二","三","四", "五", "六"],
+                
+            },
+            { 
+                name: "丹丹漢堡", 
+                time: ["中餐", "晚餐"], 
+                location: ["外面", "住家"], 
+                big: [],
+                day: [ "二","三", "四","五", "六","日"], 
+                url: "https://maps.app.goo.gl/6AjnSEtpA9tqnaJD6"
+               
+            },
+            { 
+                name: "越南那家", 
+                time: ["中餐", "晚餐"], 
+                location: ["住家"], 
+                big: [],
+                day: ["一", "二","三", "四","五", "日"], 
+                url: "https://maps.app.goo.gl/4rmgidLnx2cc9DwaA" 
+            },
+            { 
+                name: "提摩西", 
+                time: ["中餐", "晚餐"], 
+                location: ["住家"], 
+                big: [],
+                day: ["二","三", "四","五", "六","日"], 
+                url: "https://maps.app.goo.gl/fSYUvr6WHd4kgP8w9" 
+            },
+            { 
+                name: "梁社漢", 
+                time: ["中餐", "晚餐"], 
+                location: ["住家"], 
+                big: [],
+                day: ["一", "二","三", "四","五", "六","日"], 
+                url: "https://maps.app.goo.gl/vnBTEYPo7RfDb2to7" 
+            },
+            { 
+                name: "文璋", 
+                time: ["中餐", "晚餐"], 
+                location: ["在外面"], 
+                big: [],
+                day: ["二","三", "四","五", "六","日"], 
+                url: "https://maps.app.goo.gl/LE8bKSGFDVqeHXpB7" 
+            },
+            { 
+                name: "鐵板燒", 
+                time: ["中餐", "晚餐"], 
+                location: ["在外面"], 
+                big: [],
+                day: ["一", "二","三", "四","五", "六"],
+                url: "https://www.google.com/maps/search/鐵板燒" 
+            },
+            { 
+                name: "披薩", 
+                time: ["中餐", "晚餐"], 
+                location: ["住家"], 
+                big: ["爸爸請客"],
+                day: ["一", "二","三", "四","五", "六"],
+                url: "https://www.google.com/maps/search/必勝客" 
+            },
+            { 
+                name: "十二鍋", 
+                time: ["中餐", "晚餐"], 
+                location: ["外面"], 
+                big: ["爸爸請客"],
+                day: ["一", "二","三", "四","五", "六","日"], 
+                url: "https://maps.app.goo.gl/oY55zXLV1m1KCfEz8" 
+            }
+        ]
+    };
+
+    function init() {
+        const container = document.getElementById('filter-container');
+        for (const [key, attr] of Object.entries(CONFIG.attributes)) {
+            const block = document.createElement('div');
+            block.className = 'attr-block';
+            block.innerHTML = `<span class="attr-label">${attr.label}</span>`;
+            const group = document.createElement('div');
+            group.className = 'checkbox-group';
+            attr.options.forEach(opt => {
+                const label = document.createElement('label');
+                label.innerHTML = `<input type="checkbox" class="filter-chk" data-type="${key}" value="${opt}" onchange="refreshCount()"> ${opt}`;
+                group.appendChild(label);
+            });
+            block.appendChild(group);
+            container.appendChild(block);
+        }
+        document.getElementById('total-cnt').innerText = CONFIG.items.length;
+        refreshCount();
+    }
+
+    function getPool() {
+        const filters = {};
+        document.querySelectorAll('.filter-chk').forEach(chk => {
+            if (!filters[chk.dataset.type]) filters[chk.dataset.type] = [];
+            if (chk.checked) filters[chk.dataset.type].push(chk.value);
+        });
+
+        return CONFIG.items.filter(item => {
+            for (const type in filters) {
+                const selectedOptions = filters[type];
+                if (selectedOptions.length > 0) {
+                    const itemValues = Array.isArray(item[type]) ? item[type] : [item[type]];
+                    const hasMatch = selectedOptions.some(opt => itemValues.includes(opt));
+                    if (!hasMatch) return false;
+                }
+            }
+            return true;
+        });
+    }
+
+    function refreshCount() {
+        document.getElementById('match-cnt').innerText = getPool().length;
+    }
+
+    function handleDraw() {
+        const pool = getPool();
+        const resBox = document.getElementById('result-box');
+        const resText = document.getElementById('result-text');
+
+        if (pool.length === 0) {
+            resText.innerText = "吃泡麵或喝西北風";
+            resBox.classList.remove('highlight');
+            return;
+        }
+
+        const winner = pool[Math.floor(Math.random() * pool.length)];
+        
+        resBox.classList.add('highlight');
+        resText.style.opacity = 0;
+        
+        setTimeout(() => {
+            resText.innerHTML = `<a href="${winner.url}" target="_blank">${winner.name}</a>`;
+            resText.style.opacity = 1;
+        }, 100);
+    }
+
+    window.onload = init;
+</script>
+
+</body>
+</html>
