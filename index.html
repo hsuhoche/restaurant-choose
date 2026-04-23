@@ -69,35 +69,42 @@
         attributes: {
             time: { label: "早中晚？", options: ["早餐", "中餐", "晚餐"] },
             type: { label: "吃飯還吃麵？", options: ["飯", "麵", "吃大餐"] },
-            day: { label: "今天星期幾？", options: ["一", "二","三", "四","五", "六","日"] }
+            day: { label: "今天星期幾？", options: ["一","二","三","四","五","六","日"] }
         },
         items: [
             { 
                 name: "晨間廚房", 
                 time: ["早餐", "中餐"],
                 type: [], 
-                day: ["一", "二","三", "四","五", "六"],
+                day: ["一","二","三","四","五","六"],
                 url: "https://maps.app.goo.gl/xpximgqfS5a6tC977" 
             },
             { 
                 name: "克林姆", 
                 time: ["早餐", "中餐"], 
                 type: [], 
-                day: ["一", "二","三", "五", "六"],
+                day: ["一","二","三","五","六"],
                 url: "https://maps.app.goo.gl/nWzoTN9BpqfUGPgZ7" 
             },
             { 
                 name: "饅頭那家", 
                 time: ["早餐"], 
                 type: [],
-                day: ["一", "二","三","四", "五", "六"],
-                
+                day: ["一","二","三","四","五","六"],
+                url: "https://maps.app.goo.gl/DTdb2xXdUTaryJgs9?g_st=ac"
+            },
+            { 
+                name: "早安有喜", 
+                time: ["早餐"], 
+                type: [],
+                day: ["一","四","五","六","日"],
+                url: "https://maps.app.goo.gl/RbviZjhHg1tvUPAy8"
             },
             { 
                 name: "丹丹漢堡", 
                 time: ["中餐", "晚餐"], 
                 type: [], 
-                day: [ "二","三", "四","五", "六","日"], 
+                day: ["二","三","四","五","六","日"], 
                 url: "https://maps.app.goo.gl/6AjnSEtpA9tqnaJD6"
                
             },
@@ -105,14 +112,14 @@
                 name: "越南那家", 
                 time: ["中餐", "晚餐"], 
                 type: ["麵"], 
-                day: ["一", "二","三", "四","五", "日"], 
+                day: ["一","二","三","四","五","日"], 
                 url: "https://maps.app.goo.gl/4rmgidLnx2cc9DwaA" 
             },
             { 
                 name: "提摩西", 
                 time: ["中餐", "晚餐"], 
                 type: [],
-                day: ["二","三", "四","五", "六","日"], 
+                day: ["二","三","四","五","六","日"], 
                 url: "https://maps.app.goo.gl/fSYUvr6WHd4kgP8w9" 
             },
             { 
@@ -126,15 +133,21 @@
                 name: "文璋", 
                 time: ["中餐", "晚餐"], 
                 type: ["麵"], 
-                day: ["二","三", "四","五", "六","日"], 
+                day: ["二","三","四","五","六","日"], 
                 url: "https://maps.app.goo.gl/LE8bKSGFDVqeHXpB7" 
             },
-            
+            { 
+                name: "巷口麵店", 
+                time: ["中餐", "晚餐"], 
+                type: ["麵"], 
+                day: ["六"], 
+                url: "https://maps.app.goo.gl/nJrgp3cHMUHSgyVc9?g_st=ac" 
+            },
             { 
                 name: "愛群旁邊那家鴨肉麵", 
                 time: ["中餐", "晚餐"], 
                 type: ["麵"], 
-                day: ["一","二","三", "四","五", "六"], 
+                day: ["一","二","三","四","五","六"], 
                 url: "https://maps.app.goo.gl/rUE4yiYX6mgiJrcA6?g_st=ic" 
             },
             
@@ -142,126 +155,126 @@
                 name: "有夠快 (虱目魚)", 
                 time: ["中餐", "晚餐"], 
                 type: ["飯"],
-                day: ["二","三", "四","五", "六","日"], 
+                day: ["二","三","四","五","六","日"], 
                 url: "https://maps.app.goo.gl/f9en2M8kW3SnUWB38?g_st=ic" 
             },
             { 
                 name: "雞肉飯", 
                 time: ["中餐", "晚餐"], 
                 type: ["飯"],
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/ywHgTbxwuobbtDnw5" 
             },
             { 
                 name: "自助餐", 
                 time: ["中餐", "晚餐"], 
                 type: ["飯"],
-                day: ["一", "二","三","四","五","六","日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/HVb7KRo8P7z7AAko9" 
             },
             { 
                 name: "比福牛排", 
                 time: ["中餐", "晚餐"], 
                 type: ["吃大餐"],
-                day: ["一", "二","四","五","六","日"],
+                day: ["一","二","四","五","六","日"],
                 url: "https://maps.app.goo.gl/H681bs92rGLCP6gs8" 
             },
             { 
                 name: "湘園排骨", 
                 time: ["中餐", "晚餐"], 
                 type: ["飯"], 
-                day: ["一", "二","三", "四","五"],
+                day: ["一","二","三","四","五"],
                 url: "https://maps.app.goo.gl/CPVmwcooawJp2sGv9" 
             },
             { 
                 name: "吃貨牛肉麵", 
                 time: ["中餐", "晚餐"], 
                 type: ["麵"],
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/xRRNiCfp7RxsbED58" 
             },
             { 
                 name: "三商巧福", 
                 time: ["中餐", "晚餐"], 
                 type: ["麵"], 
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/7b5dNaafCaFCw1KW7" 
             },
             { 
                 name: "阿興炒飯", 
                 time: ["中餐", "晚餐"], 
                 type: ["飯"], 
-                day: ["一", "二","三", "四","五", "日"],
+                day: ["一","二","三","四","五","日"],
                 url: "https://maps.app.goo.gl/4MMAwJVTaTrycEUC8" 
             },
             { 
                 name: "小栗子鍋燒", 
                 time: ["中餐", "晚餐"], 
                 type: ["麵"], 
-                day: ["一", "二","三", "四","五", "六"],
+                day: ["一","二","三","四","五","六"],
                 url: "https://maps.app.goo.gl/aSWcQCRTKZKhkqx89" 
             },
             { 
                 name: "藥燉排骨", 
                 time: ["中餐", "晚餐"], 
                 type: [], 
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/54dwac661ai1LH6D9" 
             },
             { 
                 name: "鍋兵鍋將", 
                 time: ["中餐", "晚餐"], 
                 type: [],
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/x2Dc8ubiAoXwX8G88" 
             },
             { 
                 name: "原龍 (公休)", 
                 time: ["中餐", "晚餐"], 
                 type: ["吃大餐"],
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/igx6kR2Y8SqBpTt28" 
             },
             { 
                 name: "劉家酸白菜", 
                 time: ["中餐", "晚餐"], 
                 type: ["吃大餐"], 
-                day: ["二","三", "四","五", "六", "日"],
+                day: ["二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/4eTRn34nQY8LWaMd7" 
             },
             { 
                 name: "大福星", 
                 time: ["中餐", "晚餐"], 
                 type: ["吃大餐"], 
-                day: ["二", "四","五", "六", "日"],
+                day: ["二","四","五","六","日"],
                 url: "https://maps.app.goo.gl/7FNbd4SMThiBrAHw7" 
             },
             { 
                 name: "台匠牛排", 
                 time: ["中餐", "晚餐"], 
                 type: ["吃大餐"], 
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/5PPFegrfpTkTnP4F6" 
             },
             { 
                 name: "鐵板燒", 
                 time: ["中餐", "晚餐"], 
                 type: ["吃大餐"], 
-                day: ["一", "二","三", "四","五", "六", "日"],
+                day: ["一","二","三","四","五","六","日"],
                 url: "https://maps.app.goo.gl/DBdRoqNbvgJ4s27M9" 
             },
             { 
                 name: "披薩", 
                 time: ["中餐", "晚餐"], 
                 type: ["吃大餐"], 
-                day: ["一", "二","三", "四","五", "六"],
+                day: ["一","二","三","四","五","六"],
                 url: "https://www.google.com/maps/search/必勝客" 
             },
             { 
                 name: "石二鍋", 
                 time: ["中餐", "晚餐"], 
                 type: [],
-                day: ["一", "二","三", "四","五", "六","日"], 
+                day: ["一","二","三","四","五","六","日"], 
                 url: "https://maps.app.goo.gl/oY55zXLV1m1KCfEz8" 
             }
         ]
